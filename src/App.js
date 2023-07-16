@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
+import NewsNavBar from './components/NewsNavBar';
+import News from './components/News';
+
 
 export default class App extends Component {
-  a = 'Manoranjan';
+
 
 
   render() {
     return (
       <div>
-        hello my first class basd component -{this.a}
+        <NewsNavBar />
+        <News />
 
       </div>
     )
