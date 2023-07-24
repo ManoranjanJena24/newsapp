@@ -1304,13 +1304,3 @@
         }
     ]
 }
-Get the current top headlines for a country or category
-News API is great as a data source for news tickers and other applications where you want to show your users live headlines. We track headlines in 7 categories across over 50 countries, and at over a hundred top publications and blogs, in near real time.
-
-Let's make a request to get live top headlines in the US right now. We'll use the /top-headlines endpoint for this.
-
-This returns a JSON object with the results in an array we can iterate over.
-
-For more information about the /top-headlines endpoint, including valid parameters for focusing on specific countries and categories, see the Top Headlines endpoint reference.
-
-Definition
