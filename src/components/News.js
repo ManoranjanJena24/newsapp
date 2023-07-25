@@ -9,7 +9,8 @@ export class News extends Component {
         console.log("Hello i AM  a constructor")
         this.state = {
             atrticles: [],
-            loading: false
+            loading: false,
+            page: 1
         }
     }
     //componentdidmount render kee baad run hoogaa
@@ -19,18 +20,44 @@ export class News extends Component {
     //async function can wait inside its body to resolve some promises
     async componentDidMount() {
         console.log("component did mount")
-        let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2"
+        let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=1"
         let data = await fetch(url);
         let parsedData = await data.json()
         console.log(parsedData);
         this.setState({ atrticles: parsedData.articles })
     }
 
+    handlePrevClick = async () => {
+        console.log("previous")
+
+        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=${this.state.page - 1}`;
+        let data = await fetch(url);
+        let parsedData = await data.json()
+        console.log(parsedData);
+
+        this.setState({
+            page: this.state.page - 1,
+            atrticles: parsedData.articles
+        })
+    }
+    handleNextClick = async () => {
+        console.log("next")
+        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=${this.state.page + 1}`;
+        let data = await fetch(url);
+        let parsedData = await data.json()
+        console.log(parsedData);
+
+        this.setState({
+            page: this.state.page + 1,
+            atrticles: parsedData.articles
+        })
+    }
+
     render() {
         console.log("render")
         return (
             <div className="container my-3">
-                <h1>News Monkey - Top Headlines </h1>
+                <h1 className="text-center">News Monkey - Top Headlines </h1>
                 <div className="row" >
                     {this.state.atrticles.map((element) => {
 
@@ -42,8 +69,8 @@ export class News extends Component {
 
                 </div>
                 <div className="container d-flex justify-content-between">
-                    <button className="btn btn-dark">Previous</button>
-                    <button className="btn btn-dark">Next </button>
+                    <button disabled={this.state.page <= 1} type='button' className="btn btn-dark" onClick={this.handlePrevClick}> &larr; Previous</button>
+                    <button className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr; </button>
                 </div>
             </div>
         )
