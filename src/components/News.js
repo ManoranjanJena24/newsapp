@@ -20,17 +20,17 @@ export class News extends Component {
     //async function can wait inside its body to resolve some promises
     async componentDidMount() {
         console.log("component did mount")
-        let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=1"
+        let url = "https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=1pageSize=20"
         let data = await fetch(url);
         let parsedData = await data.json()
         console.log(parsedData);
-        this.setState({ atrticles: parsedData.articles })
+        this.setState({ atrticles: parsedData.articles, totalResults: parsedData.totalResults })
     }
 
     handlePrevClick = async () => {
         console.log("previous")
 
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=${this.state.page - 1}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=${this.state.page - 1}&pageSize=20`;
         let data = await fetch(url);
         let parsedData = await data.json()
         console.log(parsedData);
@@ -41,16 +41,22 @@ export class News extends Component {
         })
     }
     handleNextClick = async () => {
-        console.log("next")
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=${this.state.page + 1}`;
-        let data = await fetch(url);
-        let parsedData = await data.json()
-        console.log(parsedData);
+        if (this.state.page + 1 > Math.ceil(this.state.totalResults / 20)) {
 
-        this.setState({
-            page: this.state.page + 1,
-            atrticles: parsedData.articles
-        })
+        }
+        else {
+            console.log("next")
+            let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=bbf0011ce039447098c477b19e42e6b2&page=${this.state.page + 1}&pageSize=20`;
+            let data = await fetch(url);
+            let parsedData = await data.json()
+            console.log(parsedData);
+
+            this.setState({
+                page: this.state.page + 1,
+                atrticles: parsedData.articles
+            })
+        }
+
     }
 
     render() {
