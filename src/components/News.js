@@ -18,14 +18,15 @@ export class News extends Component {
 
 
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         console.log("Hello i AM  a constructor")
         this.state = {
             atrticles: [],
             loading: false,
             page: 1
         }
+        document.title = this.props.category
     }
     async updateNews() {
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=bbf0011ce039447098c477b19e42e6b2&page=${this.state.page}&pageSize=${this.props.pageSize}`
