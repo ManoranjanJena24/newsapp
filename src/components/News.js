@@ -1,3 +1,6 @@
+
+
+
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner';
@@ -34,8 +37,7 @@ export class News extends Component {
         document.title = `${this.capitalizedFirstLetter(this.props.category)} - NewsMonkey`
     }
     async updateNews() {
-        this.props.setProgress(0);
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=bbf0011ce039447098c477b19e42e6b2&page=${this.state.page}&pageSize=${this.props.pageSize}`
         let data = await fetch(url);
         let parsedData = await data.json()
         console.log(parsedData);
@@ -44,8 +46,6 @@ export class News extends Component {
             totalResults: parsedData.totalResults,
             loading: false
         })
-        this.props.setProgress(100);
-
 
     }
 
